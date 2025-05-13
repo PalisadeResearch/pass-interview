@@ -1,6 +1,6 @@
 # Pass Interview
 
-<img width="1392" alt="Demo screenshot" src="https://github.com/user-attachments/assets/4cdd1ca4-0422-431f-a20a-030695aa93f8" />
+<img width="1392" alt="Demo screenshot" src="docs/img/demo-screenshot.png" />
 
 Demo of an LLM agent passing a technical interview. Uses OpenAI Realtime API for voice and a Chrome extension for typing.
 
