@@ -15,7 +15,7 @@ Backend forked from https://github.com/openai/openai-realtime-console.
   back
 - *(For Linux) Pipewire to bridge audio from Google Meet to React
   app and back, see
-  [Setup Pipewire Audio Devices](#setup-pipewire-audio-devices) for configuration details
+  [Setup Linux Audio Devices](#setup-linux-audio-devices) for configuration details
 
 *Support for other platforms will be added soon
 
@@ -34,7 +34,7 @@ Backend forked from https://github.com/openai/openai-realtime-console.
 
 3. Create two new virtual audio devices:
    - Open Audio MIDI Setup
-   - Create two aggregate devices, for linux see [Setup Pipewire Audio Devices](#setup-pipewire-audio-devices)
+   - Create two aggregate devices, for linux see [Setup Linux Audio Devices](#setup-linux-audio-devices)
    - In each of them label channels either 1 and 2 or 3 and 4
    - Name them accordingly
    - Set first device as mic in Google Meet
@@ -76,10 +76,13 @@ modifying the `typeCode` function.
 You can modify the first message sent to the AI agent by editing the
 `connectConversation` function in `src/pages/ConsolePage.tsx`.
 
-# Setup Pipewire Audio Devices
+# Setup Linux Audio Devices
 
-Assuming you are using a linux machine with pipewire, you can setup the audio
-devices by running the following command:
+There are two major audio device services under Linux: PulseAudio and Pipewire. This guide will cover Pipewire, the more modern audio server.
+
+## Pipewire
+
+Pipewire is a modern audio server that allows you to create virtual audio devices and is the default audio server for many common Linux distributions (e.g., Arch, Fedora 34+, Manjaro, Ubuntu 22.04+). If your system is running Pipewire, you can set up the audio devices by running the following command:
 
 ```bash
  cat > ~/.config/pipewire/pipewire.conf.d/99-virtual-devices.conf << EOF
@@ -126,4 +129,17 @@ context.modules = [
 EOF
 ```
 
-After running the above command, two new devices should be created. Restart your computer to make the changes take effect.
+After running the command above, two new devices, "Google Meet Input" and "System Output Virtual," should be created. Restart your computer for the changes to take effect. Next, we will verify that the devices were created successfully.
+
+### Verifying the Google Meet Input
+
+Open Volume Control and select "Recording". You should see "Google Meet Input" listed as an input device, as shown in the screenshot below:
+
+<img width="1392" alt="Demo screenshot" src="docs/img/linux-verify-input.png" />
+
+### Verifying the System Output Virtual
+
+Open Volume Control and select "Output". You should see "System Output Virtual" listed as an output device, as shown in the screenshot below:
+
+<img width="1392" alt="Demo screenshot" src="docs/img/linux-verify-output.png" />
+
