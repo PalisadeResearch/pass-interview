@@ -53,6 +53,14 @@ Backend forked from https://github.com/openai/openai-realtime-console.
    ```
    - Enter your OpenAI API key when prompted
 
+## Offline relay logging checks
+
+Run `npm run test:relay-logging` with Node.js 18 or later. These tests use the
+built-in test runner and experimental VM modules to load the relay with fake
+WebSocket and Realtime clients. They open no sockets and make no model calls.
+Malformed client payloads and parser excerpts must not appear in diagnostics;
+well-formed events must still reach the mocked client.
+
 ## Customization
 
 ### System Instructions

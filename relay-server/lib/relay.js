@@ -49,9 +49,9 @@ export class RealtimeRelay {
         const event = JSON.parse(data);
         this.log(`Relaying "${event.type}" to OpenAI`);
         client.realtime.send(event.type, event);
-      } catch (e) {
-        console.error(e.message);
-        this.log(`Error parsing event from client: ${data}`);
+      } catch {
+        // Parser and upstream errors may contain private client payloads.
+        this.log('Error relaying event from client.');
       }
     };
     ws.on('message', (data) => {
